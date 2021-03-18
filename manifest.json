@@ -1,0 +1,14 @@
+{
+  "name": "RareEdition",
+  "description": "Used for fetching DOM!",
+  "version": "1.0",
+  "manifest_version": 2,
+  "permissions": [
+    "activeTab"
+  ],
+  "browser_action": {
+    "default_icon": "hello-16.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [{ "js": ["content.js"], "matches": ["<all_urls>"] }]
+}
