@@ -3,9 +3,7 @@
   "description": "Used for fetching DOM!",
   "version": "1.0",
   "manifest_version": 2,
-  "permissions": [
-    "activeTab"
-  ],
+  "permissions": ["activeTab", "storage"],
   "browser_action": {
     "default_icon": "hello-16.png",
     "default_popup": "popup.html"
