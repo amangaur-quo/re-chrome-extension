@@ -2,6 +2,9 @@ let backbtn = document.getElementById("back");
 backbtn.addEventListener("click", Back);
 function Back() {
   window.location.href = "/popup.html";
+  chrome.storage.sync.remove("websiteJson", function (Items) {
+    alert("removed");
+  });
 }
 
 let fillbtn = document.getElementById("FillValues");
@@ -21,7 +24,7 @@ chrome.storage.sync.get(["websiteJson"], function (result) {
   document.getElementById("sport").innerText = websiteData.sport;
   document.getElementById("cardHash").innerText = websiteData.cardHash;
   document.getElementById("player").innerText = websiteData.player;
-  document.getElementById("variety_pedigree").innerText =
+  document.getElementById("varietyPedigree").innerText =
     websiteData.variety_pedigree;
-  document.getElementById("card_grade").innerText = websiteData.grade;
+  document.getElementById("cardGrade").innerText = websiteData.grade;
 });

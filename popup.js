@@ -7,6 +7,7 @@ let psaSelectors = {
   labelType: {
     selector:
       "#mainContent > div > table > tbody > tr:nth-child(2) > td > span",
+      nextSibling: false,
   },
   year: {
     selector: "#mainContent > div > table > tbody > tr:nth-child(4) > th",
@@ -66,4 +67,14 @@ document.getElementById("scanPSA").onclick = function () {
   // Scan Page from PSA, Save to chrome storage
   // On re-open, fetch content from chrome if data is stored in storage
   // On click of fill details, patch values in angular form, remove content from chrome storage
+};
+
+window.onload = function () {
+  chrome.storage.sync.get(["websiteJson"], function (result) {
+    console.log("Value currently is " + JSON.stringify(result));
+    const websiteData = result.websiteJson;
+    if (websiteData) {
+      window.location = chrome.runtime.getURL("Details.html");
+    }
+  });
 };

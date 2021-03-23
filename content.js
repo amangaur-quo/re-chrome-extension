@@ -1,9 +1,10 @@
 const executeSelectors = function (config) {
   const refinedObject = {};
   Object.keys(config).map(function (key, index) {
+    const nextSibling = config[key].nextSibling;
     const selector = document.querySelector(config[key].selector);
     const textContent =
-      selector && selector.nextSibling
+      selector && nextSibling
         ? selector.nextSibling.textContent
         : selector.textContent;
     refinedObject[key] = textContent;
