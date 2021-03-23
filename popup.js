@@ -44,10 +44,23 @@ function display_h1(results) {
     "<p>tab title: " + tab_title + "</p><p>dom h1: " + h1 + "</p>";
 }
 
+const redirectToDetails = () => {
+  chrome.storage.sync.get(["websiteJson"], function (result) {
+    console.log("Value currently is " + JSON.stringify(result));
+    const websiteData = result.websiteJson;
+    if (websiteData) {
+      window.location = chrome.runtime.getURL("Details.html");
+    }
+  });
+};
+
 function onExecuted(result) {
   console.log(`We made it green`);
-  window.location = chrome.runtime.getURL("Details.html");
+  redirectToDetails();
 }
+window.onload = function () {
+  redirectToDetails();
+};
 
 function onError(error) {
   console.log(`Error: ${error}`);

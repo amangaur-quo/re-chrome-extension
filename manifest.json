@@ -12,5 +12,7 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "content_scripts": [{ "js": ["content.js"], "matches": ["<all_urls>"] }]
+  "content_scripts": [
+    { "js": ["content.js"], "matches": ["https://www.psacard.com/"] }
+  ]
 }
