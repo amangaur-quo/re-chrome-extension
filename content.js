@@ -1,4 +1,4 @@
-const executeSelectors = function (config) {
+executeSelectors = function (config) {
   const refinedObject = {};
   Object.keys(config).map(function (key, index) {
     const selector = document.querySelector(config[key].selector);
@@ -11,7 +11,7 @@ const executeSelectors = function (config) {
   return refinedObject;
 };
 
-let data = executeSelectors(config);
+data = executeSelectors(config);
 chrome.storage.sync.set({ websiteJson: data }, function () {
   console.log("value set");
 });
