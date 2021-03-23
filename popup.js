@@ -114,6 +114,10 @@ let pcgsSelectors = {
   },
 };
 
+document.getElementById("close").onclick = function () {
+  window.close();
+};
+
 const redirectToDetails = () => {
   chrome.storage.sync.get(["websiteJson"], function (result) {
     const websiteData = result.websiteJson;
