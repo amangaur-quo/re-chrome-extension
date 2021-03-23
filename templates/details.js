@@ -1,19 +1,12 @@
-let backbtn = document.getElementById("back");
-backbtn.addEventListener("click", Back);
-function Back() {
+// Back button
+document.getElementById("back").addEventListener("click", function () {
   window.location.href = "/popup.html";
   chrome.storage.sync.remove("websiteJson");
-}
-
-let fillbtn = document.getElementById("FillValues");
-fillbtn.addEventListener("click", fillForm);
-function fillForm() {}
+});
 
 // Set values in deatils template
 chrome.storage.sync.get(["websiteJson"], function (result) {
-  console.log("Value currently is " + JSON.stringify(result));
   const websiteData = result.websiteJson;
-  console.log("websiteDate", websiteData);
   document.getElementById("certification").innerText =
     websiteData.certification;
   document.getElementById("labelType").innerText = websiteData.labelType;
@@ -27,7 +20,8 @@ chrome.storage.sync.get(["websiteJson"], function (result) {
   document.getElementById("cardGrade").innerText = websiteData.grade;
 });
 
-document.getElementById("FillValues").addEventListener("click", () => {
+// Fill Values in Rare edition form component
+document.getElementById("fillValues").addEventListener("click", () => {
   chrome.tabs.executeScript({
     file: "fill.js",
   });
