@@ -1,18 +1,25 @@
+// Execute DOM selectors for different configuration files
 executeSelectors = function (config) {
   const refinedObject = {};
-  Object.keys(config).map(function (key, index) {
-    const nextSibling = config[key].nextSibling;
-    const selector = document.querySelector(config[key].selector);
-    const textContent =
-      selector && nextSibling
-        ? selector.nextSibling.textContent
-        : selector.textContent;
-    refinedObject[key] = textContent;
+  Object.keys(config).map(function (key) {
+    let selector = config[key].selector;
+    if (selector) {
+      const results = document.evaluate(
+        selector,
+        document,
+        null,
+        XPathResult.ANY_TYPE,
+        null
+      );
+      while ((node = results.iterateNext())) {
+        refinedObject[key] = node.textContent;
+      }
+    }
   });
   return refinedObject;
 };
 
 data = executeSelectors(config);
-chrome.storage.sync.set({ websiteJson: data }, function () {
-  console.log("value set");
-});
+
+// Store website data in chrom storage to fetch it later
+chrome.storage.sync.set({ websiteJson: data });

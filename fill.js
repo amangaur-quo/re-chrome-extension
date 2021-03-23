@@ -9,9 +9,7 @@ elementIdsArray = [
 
 (function fillForm() {
   chrome.storage.sync.get(["websiteJson"], function (result) {
-    console.log("Value currently is " + JSON.stringify(result));
     const websiteData = result.websiteJson;
-    console.log("websiteDate", websiteData);
     elementIdsArray.forEach((element) => {
       document.getElementById(element.id).value = websiteData[element.title];
       document.getElementById(element.id).dispatchEvent(new Event("input"));

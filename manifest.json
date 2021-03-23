@@ -8,11 +8,10 @@
     "default_icon": "hello-16.png",
     "default_popup": "popup.html"
   },
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
   "content_scripts": [
-    { "js": ["content.js", "fill.js"], "matches": ["https://www.psacard.com/"] }
+    {
+      "js": ["content.js", "fill.js"],
+      "matches": ["https://www.psacard.com/"]
+    }
   ]
 }

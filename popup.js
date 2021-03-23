@@ -1,71 +1,138 @@
-var tab_title = "";
 let psaSelectors = {
   certification: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(1) > th",
+    selector: "//th[text()='Certification Number']/parent::tr/td",
     nextSibling: true,
   },
   labelType: {
-    selector:
-      "#mainContent > div > table > tbody > tr:nth-child(2) > td > span",
-      nextSibling: false,
+    selector: "//th[text()='Label Type']/parent::tr/td",
+    nextSibling: false,
   },
   year: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(4) > th",
+    selector: "//th[text()='Year']/parent::tr/td",
     nextSibling: true,
   },
   brand: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(5) > th",
+    selector: "//th[text()='Brand']/parent::tr/td",
     nextSibling: true,
   },
   sport: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(6) > th",
+    selector: "//th[text()='Sport']/parent::tr/td",
     nextSibling: true,
   },
   cardHash: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(7) > th",
+    selector: "//th[text()='Card Number']/parent::tr/td",
     nextSibling: true,
   },
   player: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(8) > th",
+    selector: "//th[text()='Player']/parent::tr/td",
     nextSibling: true,
   },
   variety_pedigree: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(9) > th",
+    selector: "//th[text()='Variety/Pedigree']/parent::tr/td",
     nextSibling: true,
   },
   grade: {
-    selector: "#mainContent > div > table > tbody > tr:nth-child(10) > th",
+    selector: "//th[text()='Grade']/parent::tr/td",
     nextSibling: true,
   },
 };
-function display_h1(results) {
-  h1 = results;
-  document.querySelector("#id1").innerHTML =
-    "<p>tab title: " + tab_title + "</p><p>dom h1: " + h1 + "</p>";
-}
+let sgcSelectors = {
+  certification: {
+    selector: "//h4[text()='SEARCHED AUTH CODE:']/span",
+    nextSibling: true,
+  },
+  labelType: {
+    selector: "//h4[text()='Set:']/span",
+    nextSibling: false,
+  },
+  year: {
+    selector: "",
+    nextSibling: true,
+  },
+  brand: {
+    selector: "//th[text()='Brand']/parent::tr/td",
+    nextSibling: true,
+  },
+  sport: {
+    selector: "//th[text()='Sport']/parent::tr/td",
+    nextSibling: true,
+  },
+  cardHash: {
+    selector: "//h4[text()='Card #:']/span",
+  },
+  player: {
+    selector: "",
+    nextSibling: true,
+  },
+  variety_pedigree: {
+    selector: "",
+  },
+  grade: {
+    selector: "//h4[text()='Grade:']/span",
+  },
+  description: {
+    selector: "//h4[text()='Description:']/span",
+  },
+};
+
+let pcgsSelectors = {
+  certification: {
+    selector: "//td [text()='Cert #']/following-sibling::td",
+    nextSibling: true,
+  },
+  labelType: {
+    selector: "//h4[text()='Set:']/span",
+    nextSibling: false,
+  },
+  year: {
+    selector: "",
+    nextSibling: true,
+  },
+  brand: {
+    selector: "//th[text()='Brand']/parent::tr/td",
+    nextSibling: true,
+  },
+  sport: {
+    selector: "//th[text()='Sport']/parent::tr/td",
+    nextSibling: true,
+  },
+  cardHash: {
+    selector: "//h4[text()='Card #:']/span",
+  },
+  player: {
+    selector: "",
+    nextSibling: true,
+  },
+  variety_pedigree: {
+    selector: "",
+  },
+  grade: {
+    selector: "//td [text()='Cert #']/following::td[11]",
+  },
+  description: {
+    selector: "//h4[text()='Description:']/span",
+  },
+};
 
 const redirectToDetails = () => {
   chrome.storage.sync.get(["websiteJson"], function (result) {
-    console.log("Value currently is " + JSON.stringify(result));
     const websiteData = result.websiteJson;
-    if (websiteData) {
-      window.location = chrome.runtime.getURL("Details.html");
+    if (Object.keys(websiteData).length) {
+      window.location = chrome.runtime.getURL("./templates/details.html");
     }
   });
 };
 
-function onExecuted(result) {
-  console.log(`We made it green`);
-  redirectToDetails();
-}
+// if storage contains scanned data then send users to details template
 window.onload = function () {
   redirectToDetails();
 };
 
-function onError(error) {
-  console.log(`Error: ${error}`);
-}
+const onExecuted = () => {
+  redirectToDetails();
+};
 
+// Button Click of PSA
 document.getElementById("scanPSA").onclick = function () {
   chrome.tabs.executeScript(
     {
@@ -77,17 +144,28 @@ document.getElementById("scanPSA").onclick = function () {
       });
     }
   );
-  // Scan Page from PSA, Save to chrome storage
-  // On re-open, fetch content from chrome if data is stored in storage
-  // On click of fill details, patch values in angular form, remove content from chrome storage
 };
-
-window.onload = function () {
-  chrome.storage.sync.get(["websiteJson"], function (result) {
-    console.log("Value currently is " + JSON.stringify(result));
-    const websiteData = result.websiteJson;
-    if (websiteData) {
-      window.location = chrome.runtime.getURL("Details.html");
+document.getElementById("scanSGC").onclick = function () {
+  chrome.tabs.executeScript(
+    {
+      code: "var config = " + JSON.stringify(sgcSelectors),
+    },
+    function () {
+      chrome.tabs.executeScript({ file: "content.js" }, function () {
+        onExecuted();
+      });
     }
-  });
+  );
+};
+document.getElementById("scanPCGS").onclick = function () {
+  chrome.tabs.executeScript(
+    {
+      code: "var config = " + JSON.stringify(pcgsSelectors),
+    },
+    function () {
+      chrome.tabs.executeScript({ file: "content.js" }, function () {
+        onExecuted();
+      });
+    }
+  );
 };
