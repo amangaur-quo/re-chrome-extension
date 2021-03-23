@@ -1,12 +1,16 @@
 {
   "name": "RareEdition",
-  "description": "Used for fetching DOM!",
+  "description": "read data from specific websites",
   "version": "1.0",
   "manifest_version": 2,
   "permissions": ["activeTab", "storage"],
   "browser_action": {
     "default_icon": "hello-16.png",
     "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
   },
   "content_scripts": [{ "js": ["content.js"], "matches": ["<all_urls>"] }]
 }

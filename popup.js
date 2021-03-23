@@ -43,19 +43,27 @@ function display_h1(results) {
     "<p>tab title: " + tab_title + "</p><p>dom h1: " + h1 + "</p>";
 }
 
-document.getElementById("scan-page-content").onclick = function () {
+function onExecuted(result) {
+  console.log(`We made it green`);
+  window.location = chrome.runtime.getURL("Details.html");
+}
+
+function onError(error) {
+  console.log(`Error: ${error}`);
+}
+
+document.getElementById("scanPSA").onclick = function () {
   chrome.tabs.executeScript(
     {
       code: "var config = " + JSON.stringify(psaSelectors),
     },
     function () {
-      chrome.tabs.executeScript({ file: "content.js" });
+      chrome.tabs.executeScript({ file: "content.js" }, function () {
+        onExecuted();
+      });
     }
   );
-  chrome.storage.sync.get(["websiteJson"], function (result) {
-    console.log("Value currently is " + JSON.stringify(result));
-    document.getElementById("container").innerHTML = JSON.stringify(
-      result.websiteJson
-    );
-  });
+  // Scan Page from PSA, Save to chrome storage
+  // On re-open, fetch content from chrome if data is stored in storage
+  // On click of fill details, patch values in angular form, remove content from chrome storage
 };
