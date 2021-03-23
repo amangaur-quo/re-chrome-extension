@@ -2,9 +2,7 @@ let backbtn = document.getElementById("back");
 backbtn.addEventListener("click", Back);
 function Back() {
   window.location.href = "/popup.html";
-  chrome.storage.sync.remove("websiteJson", function (Items) {
-    alert("removed");
-  });
+  chrome.storage.sync.remove("websiteJson");
 }
 
 let fillbtn = document.getElementById("FillValues");
