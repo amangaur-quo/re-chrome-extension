@@ -13,6 +13,6 @@
     "persistent": false
   },
   "content_scripts": [
-    { "js": ["content.js"], "matches": ["https://www.psacard.com/"] }
+    { "js": ["content.js", "fill.js"], "matches": ["https://www.psacard.com/"] }
   ]
 }
