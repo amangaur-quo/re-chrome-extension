@@ -19,7 +19,10 @@ executeSelectors = function (config) {
         null
       );
       while ((node = results.iterateNext())) {
-        refinedObject[key] = node.textContent;
+        const regex = new RegExp(config[key].regex, "gi");
+        refinedObject[key] = config[key].regex
+          ? node.textContent.match(regex)
+          : node.textContent;
       }
     }
   });

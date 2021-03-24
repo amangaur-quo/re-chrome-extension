@@ -21,20 +21,24 @@
     <style>
       html,
       body {
-        font-family: sans-serif;
         font-size: 14px;
         margin: 0;
         min-height: 180px;
         padding: 0;
         width: 384px;
+        color: #000;
+        font-family: Arial;
       }
 
       h1 {
-        font-family: sans-serif;
-        font-size: 22px;
-        margin: 0;
-        font-weight: 400;
-        color: #2f5876;
+        color: #000;
+        font-size: 12px;
+        text-align: center;
+        line-height: 13px;
+      }
+      span#close {
+        position: absolute;
+        right: 12px;
       }
 
       a:link,
@@ -99,52 +103,84 @@
         margin: 4px 2px;
         cursor: pointer;
       }
+      .btn {
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        padding: 10px;
+        color: #000;
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 50%);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+      }
+      .label {
+        color: #000;
+        font-size: 12px;
+        line-height: 13px;
+      }
+      .fa-external-link {
+        font-size: 12px;
+        width: 20px;
+      }
     </style>
   </head>
   <body>
-    <div class="modal-header">
+    <div>
+      <span id="close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </span>
       <h1 class="logo">
-        <img src="re-black-logo.png" alt="Rare Edition" class="logo-icon" />
         Rare Edition Extension
-        <!-- <span class="version">(1.0.0)</span> -->
-        <button id="close">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
       </h1>
     </div>
     <div class="modal-content"></div>
 
     <div class="modal-icons">
       <div class="flex-container">
-        <div class="flex">
-          <img src="psa-logo.png" alt="PSA" class="logo-icon" />
+        <div class="">
+          <span class="label">PSA</span>
+          <a href="https://www.psacard.com/" target="_blank">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
         </div>
-        <a href="https://www.psacard.com/" target="_blank">
-          <i class="fa fa-link" aria-hidden="true"></i>
-        </a>
-        <input type="button" id="scanPSA" value="Scan Page" class="right" />
+        <input type="button" id="scanPSA" value="Scan Page" class="btn" />
       </div>
     </div>
     <div class="modal-icons">
       <div class="flex-container">
-        <div class="flex">
-          <img src="sgc.svg" alt="SGC" class="logo-icon" />
+        <div class="">
+          <span class="label">SGC</span>
+          <a href="https://www.gosgc.com/auth-code" target="_blank">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
         </div>
-        <a href="https://www.psacard.com/" target="_blank">
-          <i class="fa fa-link" aria-hidden="true"></i>
-        </a>
-        <input type="button" id="scanSGC" value="Scan Page" class="right" />
+        <input type="button" id="scanSGC" value="Scan Page" class="btn" />
       </div>
     </div>
     <div class="modal-icons">
       <div class="flex-container">
-        <div class="flex">
-          <img src="pcgs.png" alt="PCGS" class="logo-icon" />
+        <div>
+          <span class="label">PCGS</span>
+          <a href="https://www.pcgseurope.com/cert" target="_blank">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
         </div>
-        <a href="https://www.psacard.com/" target="_blank">
-          <i class="fa fa-link" aria-hidden="true"></i>
-        </a>
-        <input type="button" id="scanPCGS" value="Scan Page" class="right" />
+        <input type="button" id="scanPCGS" value="Scan Page" class="btn" />
+      </div>
+    </div>
+    <div class="modal-icons">
+      <div class="flex-container">
+        <div class="">
+          <span class="label">NGC</span>
+          <a href="https://www.ngccoin.com/certlookup/" target="_blank">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+          </a>
+        </div>
+        <input type="button" id="scanNGC" value="Scan Page" class="btn" />
       </div>
     </div>
     <div id="container"></div>

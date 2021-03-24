@@ -4,6 +4,10 @@ document.getElementById("back").addEventListener("click", function () {
   chrome.storage.sync.remove("websiteJson");
 });
 
+document.getElementById("close").onclick = function () {
+  window.close();
+};
+
 // Set values in deatils template
 chrome.storage.sync.get(["websiteJson"], function (result) {
   const websiteData = result.websiteJson;

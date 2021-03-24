@@ -46,8 +46,8 @@ let sgcSelectors = {
     nextSibling: false,
   },
   year: {
-    selector: "",
-    nextSibling: true,
+    selector: "//h4[text()='Set:']/span",
+    regex: "\\d+",
   },
   brand: {
     selector: "//th[text()='Brand']/parent::tr/td",
@@ -97,7 +97,7 @@ let pcgsSelectors = {
     nextSibling: true,
   },
   cardHash: {
-    selector: "//h4[text()='Card #:']/span",
+    selector: "//td [text()='PCGS #']/following-sibling::td",
   },
   player: {
     selector: "",
@@ -107,10 +107,46 @@ let pcgsSelectors = {
     selector: "",
   },
   grade: {
-    selector: "//td [text()='Cert #']/following::td[11]",
+    selector: "//td [text()='Grade']/following-sibling::td",
   },
   description: {
     selector: "//h4[text()='Description:']/span",
+  },
+};
+
+let ngcSelectors = {
+  certification: {
+    selector: "//dt[text()='NGC Cert #']/parent::dl/dd",
+    nextSibling: true,
+  },
+  labelType: {
+    selector: "//dt[text()='NGC Description']/parent::dl/dd",
+    nextSibling: false,
+  },
+  year: {
+    selector: "",
+    nextSibling: true,
+  },
+  brand: {
+    selector: "//th[text()='Brand']/parent::tr/td",
+    nextSibling: true,
+  },
+  sport: {
+    selector: "//th[text()='Sport']/parent::tr/td",
+    nextSibling: true,
+  },
+  cardHash: {
+    selector: "",
+  },
+  player: {
+    selector: "",
+    nextSibling: true,
+  },
+  variety_pedigree: {
+    selector: "",
+  },
+  grade: {
+    selector: "//dt[text()='NGC Grade']/parent::dl/dd",
   },
 };
 
@@ -165,6 +201,18 @@ document.getElementById("scanPCGS").onclick = function () {
   chrome.tabs.executeScript(
     {
       code: "var config = " + JSON.stringify(pcgsSelectors),
+    },
+    function () {
+      chrome.tabs.executeScript({ file: "content.js" }, function () {
+        onExecuted();
+      });
+    }
+  );
+};
+document.getElementById("scanNGC").onclick = function () {
+  chrome.tabs.executeScript(
+    {
+      code: "var config = " + JSON.stringify(ngcSelectors),
     },
     function () {
       chrome.tabs.executeScript({ file: "content.js" }, function () {
