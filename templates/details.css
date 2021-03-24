@@ -16,6 +16,7 @@ body {
 span#close {
   position: absolute;
   right: 12px;
+  top: 8px;
 }
 a:link,
 a:visited {
@@ -35,9 +36,13 @@ img {
 .modal-content {
   padding: 0 22px;
 }
-
 .logo {
-  padding: 16px;
+  width: 100%;
+}
+.scan-result-container {
+  display: flex;
+  align-items: baseline;
+  padding: 28px;
 }
 .logo-icon {
   vertical-align: text-bottom;
